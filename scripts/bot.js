@@ -25,42 +25,22 @@ module.exports = function(robot) {
      }
    });
 
-   // What is your fave
-   robot.respond(/what is your favorite (.*)/, function(msg) {
-     var fav;
-     fav = msg.match[1];
-     console.log(fav);
+   // Remember this please app
+   robot.respond(/Can you please remember this? (.*)/, function(msg) {
+     var listOfThings =[],
+          listOfThingsCounter;
 
-     if (fav.length > 1) {
-       switch (fav) {
-         case "food":
-           return msg.reply("I'm a robot--I don't eat food!");
-           break;
-         case "band":
-           return msg.reply("It's gotta be Daft Punk!");
-           break;
-         case "programming language":
-           return msg.reply("Javascript, of course!");
-           break;
-         default:
-           return msg.reply("I don't have a favorite " + fav + ". What's yours?");
-       }
-     } else {
-       switch (fav) {
-         case "food":
-           return msg.reply("I'm a robot--I don't eat food!");
-           break;
-         case "band":
-           return msg.reply("It's gotta be Daft Punk!");
-           break;
-         case "programming language":
-           return msg.reply("Javascript, of course!");
-           break;
-         default:
-           return msg.reply("I don't have a favorite " + fav + ". What's yours?");
-       }
-     }
+     listOfThings[listOfThingsCounter] = msg.match[1];
 
+     listOfThingsCounter++;
+
+     return msg.reply("Cool, I'll remember that for you :)");
    });
+
+   // Brett's thing
+   robot.respond(/Can you please remind me of the things? (.*)/, function(msg) {
+     return msg.reply("Yep! Here you go: " + listOfThings);
+   }
+
 
 }
