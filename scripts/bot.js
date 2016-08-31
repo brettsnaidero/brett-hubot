@@ -2,7 +2,7 @@ module.exports = function(robot) {
 
   // Hi
   robot.hear(/Hello!/, function(res) {
-    return res.send("Bye!");
+    return res.send("Hi! I'm a note-taking app.");
   });
 
   // Is it a weekend?
@@ -14,34 +14,42 @@ module.exports = function(robot) {
       );
   });
 
-  // Hi
-  robot.respond(/Hi Hubot! My name is (.*)/i, function(msg) {
-     var name;
-     name = msg.match[1];
-     if (name == "Hubot"){
-       return msg.send("You're not Hubot--I'm Hubot!");
-     } else {
-       return msg.reply("Nice to meet you, " + name + "!");
-     }
-   });
-
    // Remember this please app
    let listOfThings = [];
-   let listOfThingsCounter = 0;
 
    robot.respond(/Can you please remember this\? (.*)/i, function(msg) {
-     var memoryAnswer = msg.match[1];
-     listOfThings[listOfThingsCounter] = memoryAnswer;
-
-     listOfThingsCounter++;
+     let memoryAnswer = msg.match[1];
+     listOfThings.push(memoryAnswer);
 
      return msg.reply("Cool, I'll remember that for you.");
    });
 
-   // Brett's thing
+   // Remind me
    robot.respond(/Can you please remind me of the things\?/, function(msg) {
-     return msg.reply("Yep! Here you go: " + listOfThings);
+
+     // Make it nice to read
+     let listRemind = listOfThings.map(something => {
+       return something;
+     });
+
+     return msg.reply("Yep! Here you go: " + listRemind);
    });
 
+   // Remind me specific
+   robot.respond(/What was number (.*) \?/i, function(msg){
+     let memoryAnswer = msg.match[1].parseInt();
+
+     if (memoryAnswer > listOfThings.length) {
+       return msg.reply("Sorry, there's only " + listOfThings.length + " items in my memory.");
+     } else {
+       return msg.reply(listOfThings[memoryAnswer]);
+     }
+   });
+
+   // How many things
+   robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
+
+
+   });
 
 }
