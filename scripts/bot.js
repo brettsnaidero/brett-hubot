@@ -35,11 +35,11 @@ module.exports = function(robot) {
 
      listOfThingsCounter++;
 
-     return msg.reply("Cool, I'll remember that for you :)");
+     return msg.reply("Cool, I'll remember that for you.");
    });
 
    // Brett's thing
-   robot.respond(/Can you please remind me of the things? (.*)/i, function(msg) {
+   robot.respond(/Can you please remind me of the things?/, function(msg) {
      return msg.reply("Yep! Here you go: " + listOfThings);
    });
 
