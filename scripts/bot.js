@@ -40,7 +40,7 @@ module.exports = function(robot) {
    // Brett's thing
    robot.respond(/Can you please remind me of the things? (.*)/, function(msg) {
      return msg.reply("Yep! Here you go: " + listOfThings);
-   }
+   });
 
 
 }
