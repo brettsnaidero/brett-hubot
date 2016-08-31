@@ -26,8 +26,8 @@ module.exports = function(robot) {
    });
 
    // Remember this please app
-   var listOfThings = [];
-   var listOfThingsCounter = 0;
+   let listOfThings = [];
+   let listOfThingsCounter = 0;
 
    robot.respond(/Can you please remember this? (.*)/, function(msg) {
      listOfThings[listOfThingsCounter] = msg.match[1];
