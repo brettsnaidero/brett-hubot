@@ -29,7 +29,7 @@ module.exports = function(robot) {
    let listOfThings = [];
    let listOfThingsCounter = 0;
 
-   robot.respond(/Can you please remember this? (.*)/, function(msg) {
+   robot.respond(/Can you please remember this? (.*)/i, function(msg) {
      listOfThings[listOfThingsCounter] = msg.match[1];
 
      listOfThingsCounter++;
@@ -38,7 +38,7 @@ module.exports = function(robot) {
    });
 
    // Brett's thing
-   robot.respond(/Can you please remind me of the things? (.*)/, function(msg) {
+   robot.respond(/Can you please remind me of the things? (.*)/i, function(msg) {
      return msg.reply("Yep! Here you go: " + listOfThings);
    });
 
