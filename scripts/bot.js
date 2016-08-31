@@ -7,7 +7,7 @@ module.exports = function(robot) {
   robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
       let today = new Date();
 
-      msg.reply(
+      return msg.send(
         today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO"
       );
   });
