@@ -1,7 +1,7 @@
 module.exports = function(robot) {
 
-  robot.hear(/Hello!/, function(res) {
-    return res.send("Hi there!");
+  robot.hear(/Jelly Time!/, function(res) {
+    return res.send("No!");
   });
 
 }
