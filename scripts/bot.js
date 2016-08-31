@@ -47,9 +47,12 @@ module.exports = function(robot) {
    });
 
    // How many things
-   robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
-
-
+   robot.respond(/How many things are you remembering\?/i, function(msg){
+     if (listOfThings.length === 0) {
+       return msg.reply("Nothing");
+     } else {
+       return msg.reply(listOfThings.length + " things.");
+     }
    });
 
 }
