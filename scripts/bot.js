@@ -36,7 +36,7 @@ module.exports = function(robot) {
    });
 
    // Remind me specific
-   robot.respond(/What was number (.*) \?/i, function(msg){
+   robot.respond(/What was number (.*)\?/i, function(msg){
      let memoryAnswer = msg.match[1].parseInt();
 
      if (memoryAnswer > listOfThings.length) {
