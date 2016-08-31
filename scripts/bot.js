@@ -23,11 +23,12 @@ module.exports = function(robot) {
      } else {
        return msg.reply("Nice to meet you, " + name + "!");
      }
-   });
+   }); 
 
    // Remember this please app
    let listOfThings = [];
    let listOfThingsCounter = 0;
+
    robot.respond(/Can you please remember this? (.*)/, function(msg) {
      listOfThings[listOfThingsCounter] = msg.match[1];
 
