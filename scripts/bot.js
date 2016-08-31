@@ -37,8 +37,8 @@ module.exports = function(robot) {
 
    // Remind me specific
    robot.respond(/What was number (.*)\?/i, function(msg){
-     let memoryAnswer = msg.match[1].parseInt();
-     return msg.reply( memoryAnswer );
+     let memoryAnswer = msg.match[1];
+     memoryAnswer = memoryAnswer.parseInt();
 
      if (memoryAnswer > listOfThings.length) {
        return msg.reply("Sorry, there's only " + listOfThings.length + " items in my memory.");
