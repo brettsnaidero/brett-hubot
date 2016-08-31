@@ -30,7 +30,8 @@ module.exports = function(robot) {
    let listOfThingsCounter = 0;
 
    robot.respond(/Can you please remember this? (.*)/i, function(msg) {
-     listOfThings[listOfThingsCounter] = msg.match[1];
+     var memoryAnswer = msg.match[1];
+     listOfThings[listOfThingsCounter] = memoryAnswer;
 
      listOfThingsCounter++;
 
