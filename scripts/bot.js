@@ -7,7 +7,7 @@ module.exports = function(robot) {
 
   // Is it a weekend?
   robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
-      var today = new Date();
+      let today = new Date();
 
       return msg.send(
         today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO"
@@ -38,11 +38,12 @@ module.exports = function(robot) {
    // Remind me specific
    robot.respond(/What was number (.*)\?/i, function(msg){
      let memoryAnswer = msg.match[1].parseInt();
+     return msg.reply( memoryAnswer );
 
      if (memoryAnswer > listOfThings.length) {
        return msg.reply("Sorry, there's only " + listOfThings.length + " items in my memory.");
      } else {
-       return msg.reply(listOfThings[memoryAnswer]);
+       return msg.reply( listOfThings[memoryAnswer] );
      }
    });
 
