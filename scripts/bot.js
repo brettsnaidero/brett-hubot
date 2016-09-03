@@ -64,7 +64,7 @@ module.exports = function(robot) {
 
       let response = firstTurn(memoryAnswer);
 
-      turn++;
+      currentTurn++;
 
       return msg.reply("Cool, I'll remember that for you.");
       return msg.reply("Cool, I'll remember that for you.");
