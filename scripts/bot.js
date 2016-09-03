@@ -28,7 +28,7 @@ module.exports = function(robot) {
       // New game, set variables
       // function newGame() {
         // Put the car behind a random door
-        carDoor = (Math.random() * 3) + 1;
+        carDoor = Math.floor(Math.random() * 3) + 1;
         doors[carDoor] = 'A new car!';
 
         // Put goats behind the remaining doors
@@ -48,7 +48,7 @@ module.exports = function(robot) {
         ];
       // }
 
-      return res.send( 'Hello' + carDoor );
+      return res.send( 'Alrighty, pick a door between 1 and 3 (Format: "Door #").' );
     });
 
     robot.respond(/Door (.*)/i, function(msg) {
@@ -58,7 +58,7 @@ module.exports = function(robot) {
 
       currentTurn++;
 
-      return msg.reply("Cool, I'll remember that for you.");
+      return msg.reply( response );
     });
 
     // First turn, get user choice and open a door
