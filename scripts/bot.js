@@ -1,59 +1,124 @@
 module.exports = function(robot) {
 
-  // Hi
-  robot.hear(/Hello!/, function(res) {
-    return res.send("Hi! I'm a note-taking app.");
-  });
+    // Variable to start the game
+    let inGame = false;
 
-  // Is it a weekend?
-  robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
-      let today = new Date();
+    // Hi
+    robot.hear(/Hello!/, function(res) {
+      return res.send("Hi! I'm a Monty Hall problem simulator! Would you like to play? (Y/N)");
+    });
 
-      return msg.send(
-        today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO"
-      );
-  });
+    // Hi
+    robot.hear(/Door please/, function(res) {
+      return res.send("http://math.ucsd.edu/~crypto/Monty/images/door1.jpg");
+    });
 
-   // Remember this please app
-   let listOfThings = [];
+    // Is it a weekend?
+    // robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
+    //     let today = new Date();
+    //
+    //     return msg.send(
+    //       today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO"
+    //     );
+    // });
 
-   robot.respond(/Can you please remember this\? (.*)/i, function(msg) {
-     let memoryAnswer = msg.match[1];
-     listOfThings.push(memoryAnswer);
+    // Monty Hall
+    // Variables to keep track of score
+    // let numWin = 0;
+    // let numLoss = 0;
+    // let ratioValue = 0;
+    //
+    // // The Game
+    // function montyHallGame() {
+    //
+    //     // Object for the doors
+    //     let doors = [];
+    //
+    //     // Put the car behind a random door
+    //     let carDoor = (Math.random() * 3) + 1;
+    //     doors[carDoor] = 'A new car!';
+    //
+    //     // Put goats behind the remaining doors
+    //     let i = 0;
+    //     while (i < 4) {
+    //       if (i != carDoor) {
+    //         doors[i] = 'An old goat!';
+    //       };
+    //     };
+    //
+    //     let openDoors = [
+    //       false,
+    //       false,
+    //       false
+    //     ];
+    //
+    //     // First turn, get user choice and open a door
+    //     function firstTurn() {
+    //       // Number between 1 & 3 taken by bot
+    //       let userChoice = 1;
+    //
+    //       // Choose a remaining door that doesn't have the car behind it
+    //       let openDoor =  Math.floor(Math.random() * 3);
+    //       while(openDoor == userChoice || openDoor == carDoor){
+    //         openDoor = Math.floor(Math.random() * 3);
+    //       };
+    //
+    //       //
+    //       say("Great choice! Now let's open one of the other doors!");
+    //
+    //       //
+    //       showOpenDoors(openDoors);
+    //
+    //       //  Open that door
+    //       openDoors[openDoor] = true;
+    //
+    //       turn++;
+    //     }
+    //
+    //     function secondTurn(userChoice) {
+    //       //
+    //       say("Now would you like to switch from the door you originally picked?");
+    //
+    //       // If user says yes, then choose the other door
+    //       if (switchChoice === true) {
+    //
+    //       }
+    //
+    //       turn++;
+    //     }
+    //
+    //     function openTheDoor() {
+    //       // Open the door...
+    //       openDoors[userChoice] = true;
+    //       // ...and see what's inside
+    //       let outcome = doors[userChoice];
+    //       //
+    //       say("It's a " + outcome);
+    //
+    //     }
+    //
+    //
+    // }
+    //
+    //
+    //
+    //     //
+    //
+    //
+    // }
+    //
+    // // Robot brain
+    // // robot.brain.thing();
+    // // robot.brain.set 'totalSodas', sodasHad+1;
+    //
+    //
+    // robot.respond(/Can you please remember this\? (.*)/i, function(msg) {
+    //   let memoryAnswer = msg.match[1];
+    //   listOfThings.push(memoryAnswer);
+    //
+    //   return msg.reply("Cool, I'll remember that for you.");
+    // });
 
-     return msg.reply("Cool, I'll remember that for you.");
-   });
 
-   // Remind me
-   robot.respond(/Can you please remind me of the things\?/, function(msg) {
-
-     // Make it nice to read
-     let listRemind = listOfThings.map(something => {
-       return something;
-     });
-
-     return msg.reply("Yep! Here you go: " + listRemind);
-   });
-
-   // Remind me specific
-   robot.respond(/What was number (.*)\?/i, function(msg){
-     let memoryAnswer = msg.match[1];
-     memoryAnswer = memoryAnswer.parseInt();
-
-     if (memoryAnswer > listOfThings.length) {
-       return msg.reply("Sorry, there's only " + listOfThings.length + " items in my memory.");
-     } else {
-       return msg.reply( listOfThings[memoryAnswer] );
-     }
-   });
-
-   // How many things
-   robot.respond(/How many things are you remembering\?/i, function(msg){
-     if (listOfThings.length === 0) {
-       return msg.reply("Nothing");
-     } else {
-       return msg.reply(listOfThings.length + " things.");
-     }
-   });
 
 }
