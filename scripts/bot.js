@@ -1,11 +1,5 @@
 module.exports = function(robot) {
 
-    let doorImages = [
-      'http://math.ucsd.edu/~crypto/Monty/images/door1.jpg',
-      'http://math.ucsd.edu/~crypto/Monty/images/door2.jpg',
-      'http://math.ucsd.edu/~crypto/Monty/images/door3.jpg',
-    ];
-
     // Hi
     robot.hear(/(Hello|Hi|Help)/, function(res) {
       return res.send("Hi! I'm a Monty Hall problem simulator! Say 'Start' to begin a new game.");
@@ -28,31 +22,30 @@ module.exports = function(robot) {
     let carDoor = 0;
     let openDoors = [];
 
-    function newGame() {
-      // Put the car behind a random door
-      carDoor = (Math.random() * 3) + 1;
-      doors[carDoor] = 'A new car!';
-
-      // Put goats behind the remaining doors
-      let i = 0;
-      while (i < 4) {
-        if (i != carDoor) {
-          doors[i] = 'An old goat!';
-        };
-      };
-
-      // Separate array for which doors are open
-      openDoors = [
-        false,
-        false,
-        false
-      ];
-    };
 
     // Start game
     robot.hear(/Start/, function(res) {
       // New game, set variables
-      newGame();
+      // function newGame() {
+        // Put the car behind a random door
+        carDoor = (Math.random() * 3) + 1;
+        doors[carDoor] = 'A new car!';
+
+        // Put goats behind the remaining doors
+        let i = 0;
+        while (i < 4) {
+          if (i != carDoor) {
+            doors[i] = 'An old goat!';
+          };
+        };
+
+        // Separate array for which doors are open
+        openDoors = [
+          false,
+          false,
+          false
+        ];
+      // }
 
       return res.send( 'Hi' + carDoor );
     });
