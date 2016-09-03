@@ -32,22 +32,20 @@ module.exports = function(robot) {
         doors[carDoor] = 'A new car!';
 
         // Put goats behind the remaining doors
-        let i = 0;
-        while (i < 4) {
-          if (i != carDoor) {
-            doors[i] = 'An old goat!';
-          };
-        };
-
-        // Separate array for which doors are open
-        openDoors = [
-          false,
-          false,
-          false
-        ];
+        // let i = 0;
+        // while (i < 4) {
+        //   if (i != carDoor) {
+        //     doors[i] = 'An old goat!';
+        //   };
+        // };
+        //
+        // // Separate array for which doors are open
+        // openDoors = [
+        //   false,
+        //   false,
+        //   false
+        // ];
       // }
-
-      let answer = 'Hi ' + carDoor;
 
       return res.send( 'Hello' );
     });
