@@ -47,7 +47,9 @@ module.exports = function(robot) {
         ];
       // }
 
-      return res.send( 'Hi' + carDoor );
+      let answer = 'Hi ' + carDoor;
+
+      return res.send( answer );
     });
 
     robot.respond(/Door (.*)/i, function(msg) {
