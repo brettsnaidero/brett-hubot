@@ -47,7 +47,7 @@ module.exports = function(robot) {
         false,
         false
       ];
-    }
+    };
 
     // Start game
     robot.hear(/Start/, function(res) {
@@ -55,7 +55,7 @@ module.exports = function(robot) {
       newGame();
 
       return res.send( 'Hi' + carDoor );
-    });s
+    });
 
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
@@ -76,7 +76,7 @@ module.exports = function(robot) {
       };
 
       return 'hey';
-    }
+    };
 
     function secondTurn(userChoice) {
       //
@@ -85,8 +85,8 @@ module.exports = function(robot) {
       // If user says yes, then choose the other door
       if (switchChoice === true) {
 
-      }
-    }
+      };
+    };
 
     // Open the door
     function openTheDoor() {
@@ -94,6 +94,6 @@ module.exports = function(robot) {
       openDoors[userChoice] = true;
       // ...and see what's inside
       let outcome = doors[userChoice];
-    }
+    };
 
 }
