@@ -22,6 +22,7 @@ module.exports = function(robot) {
     let carDoor = 0;
     let openDoors = [];
 
+    let chosenDoor = '';
 
     // Start game
     robot.hear(/Start/, function(res) {
@@ -29,6 +30,9 @@ module.exports = function(robot) {
       // function newGame() {
         // Put the car behind a random door
         carDoor = Math.floor(Math.random() * 3) + 1;
+
+        carDoor = (carDoor - 1);
+
         doors[carDoor] = 'A new car!';
 
         // Put goats behind the remaining doors
@@ -51,36 +55,85 @@ module.exports = function(robot) {
       return res.send( 'Alrighty, pick a door between 1 and 3 (Format: "Door #").' );
     });
 
-    robot.respond(/Door (.*)/i, function(msg) {
-      let memoryAnswer = msg.match[1];
-
-      let response = firstTurn(memoryAnswer);
-
-      currentTurn++;
-
-      return msg.reply( response );
-    });
 
     // First turn, get user choice and open a door
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
       let openDoor =  Math.floor(Math.random() * 3);
+      openDoor = openDoor - 1;
+
       while(openDoor == userChoice || openDoor == carDoor){
         openDoor = Math.floor(Math.random() * 3);
       };
+      openDoors[openDoor] = true;
 
-      return 'hey';
+      return openDoor;
     };
 
-    function secondTurn(userChoice) {
-      //
-      let response = "Now would you like to switch from the door you originally picked?";
+    robot.respond(/Door (.*)/i, function(msg) {
+      let memoryAnswer = msg.match[1];
+      chosenDoor = memoryAnswer;
 
-      // If user says yes, then choose the other door
-      if (switchChoice === true) {
+      // Convert to number
+      switch memoryAnswer {
+        case 'One':
+          memoryAnswer = 1;
+          return;
+        case 'Two':
+          memoryAnswer = 2;
+          return;
+        case 'Three':
+          memoryAnswer = 3;
+          return;
+        default:
+          return;
+      }
+      memoryAnswer = memoryAnswer.parseInt();
 
-      };
+      if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
+        firstTurn(memoryAnswer - 1);
+        currentTurn++;
+        return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
+      } else {
+        return msg.reply( "Sorry, didn't understand that." );
+      }
+
+    });
+
+
+    function secondTurn(switchYesNo) {
+      // If user says yes, then choose the other closed door
+      if (switchYesNo === true) {
+        openDoors.forEach((item, number) => {
+          if (item === false && number !== chosenDoor) {
+            chosenDoor = number;
+          }
+        });
+        switchedMessage = "Successfully switched to door " + (chosenDoor + 1) + "!";
+      } else {
+        switchedMessage = "Stayed put!";
+      }
+
+      return switchedMessage;
     };
+
+    robot.respond(/Switch (.*)/i, function(msg) {
+      let memoryAnswer = msg.match[1];
+
+      let switchYesNo = '';
+      if (memoryAnswer === 'Yes') {
+        switchYesNo = true;
+      } else {
+        switchYesNo = false;
+      }
+
+      let response = secondTurn(switchYesNo);
+
+      currentTurn++;
+
+      return msg.reply( switchedMessage  );
+    });
+
 
     // Open the door
     function openTheDoor() {
