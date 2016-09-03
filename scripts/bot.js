@@ -67,26 +67,22 @@ module.exports = function(robot) {
       currentTurn++;
 
       return msg.reply("Cool, I'll remember that for you.");
-      return msg.reply("Cool, I'll remember that for you.");
     });
 
     // First turn, get user choice and open a door
     function firstTurn(userChoice) {
-      // Number between 1 & 3 taken by bot
-      let userChoice = 1;
-
       // Choose a remaining door that doesn't have the car behind it
       let openDoor =  Math.floor(Math.random() * 3);
       while(openDoor == userChoice || openDoor == carDoor){
         openDoor = Math.floor(Math.random() * 3);
       };
 
-      return
+      return 'hey';
     }
 
     function secondTurn(userChoice) {
       //
-      let response ="Now would you like to switch from the door you originally picked?";
+      let response = "Now would you like to switch from the door you originally picked?";
 
       // If user says yes, then choose the other door
       if (switchChoice === true) {
