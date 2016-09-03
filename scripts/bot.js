@@ -8,29 +8,15 @@ module.exports = function(robot) {
 
     // Hi
     robot.hear(/(Hello|Hi|Help)/, function(res) {
-      return res.send("Hi! I'm a Monty Hall problem simulator! Would you like to play? (Y/N)");
+      return res.send("Hi! I'm a Monty Hall problem simulator! Say 'Start' to begin a new game.");
     });
 
-    // Hi
-    robot.hear(/Door please/, function(res) {
-      return res.send( doorImages[1] );
-    });
-
-    // Is it a weekend?
-    robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
-        let today = new Date();
-
-        return msg.send(
-          today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO"
-        );
-    });
 
     // Monty Hall
     // Variables to keep track of score
     let numWin = 0;
     let numLoss = 0;
     let ratioValue = 0;
-
 
     // Game Variables
     let inGame = false;
@@ -39,25 +25,37 @@ module.exports = function(robot) {
 
     // Object for the doors
     let doors = [];
+    let carDoor = 0;
+    let openDoors = [];
 
-    // Put the car behind a random door
-    let carDoor = (Math.random() * 3) + 1;
-    doors[carDoor] = 'A new car!';
+    function newGame() {
+      // Put the car behind a random door
+      carDoor = (Math.random() * 3) + 1;
+      doors[carDoor] = 'A new car!';
 
-    // Put goats behind the remaining doors
-    let i = 0;
-    while (i < 4) {
-      if (i != carDoor) {
-        doors[i] = 'An old goat!';
+      // Put goats behind the remaining doors
+      let i = 0;
+      while (i < 4) {
+        if (i != carDoor) {
+          doors[i] = 'An old goat!';
+        };
       };
-    };
 
-    // Separate array for which doors are open
-    let openDoors = [
-      false,
-      false,
-      false
-    ];
+      // Separate array for which doors are open
+      openDoors = [
+        false,
+        false,
+        false
+      ];
+    }
+
+    // Start game
+    robot.hear(/Start/, function(res) {
+      // New game, set variables
+      newGame();
+
+      return res.send( 'Hi' + carDoor );
+    });s
 
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
