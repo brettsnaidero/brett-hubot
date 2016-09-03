@@ -49,7 +49,7 @@ module.exports = function(robot) {
 
       let answer = 'Hi ' + carDoor;
 
-      return res.send( answer );
+      return res.send( 'Hello' );
     });
 
     robot.respond(/Door (.*)/i, function(msg) {
