@@ -59,39 +59,37 @@ module.exports = function(robot) {
     // First turn, get user choice and open a door
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
-      // let openDoor =  Math.floor(Math.random() * 3);
-      // openDoor = openDoor - 1;
-      //
-      // while(openDoor == userChoice || openDoor == carDoor){
-      //   openDoor = Math.floor(Math.random() * 3);
-      // };
-      // openDoors[openDoor] = true;
-      //
-      // return openDoor;
+      let openDoor =  Math.floor(Math.random() * 3);
+      openDoor = openDoor - 1;
+
+      while(openDoor == userChoice || openDoor == carDoor){
+        openDoor = Math.floor(Math.random() * 3);
+      };
+      openDoors[openDoor] = true;
     };
 
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
-      chosenDoor = memoryAnswer;
-
-      // Convert to number
-      switch (memoryAnswer) {
-        case 'One':
-          memoryAnswer = 1;
-          break;
-        case 'Two':
-          memoryAnswer = 2;
-          break;
-        case 'Three':
-          memoryAnswer = 3;
-          break;
-        default:
-          break;
-      }
+      // chosenDoor = memoryAnswer;
+      //
+      // // Convert to number
+      // switch (memoryAnswer) {
+      //   case 'One':
+      //     memoryAnswer = 1;
+      //     break;
+      //   case 'Two':
+      //     memoryAnswer = 2;
+      //     break;
+      //   case 'Three':
+      //     memoryAnswer = 3;
+      //     break;
+      //   default:
+      //     break;
+      // }
       memoryAnswer = memoryAnswer.parseInt();
 
       if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
-        firstTurn(memoryAnswer - 1);
+        // firstTurn(memoryAnswer - 1);
         currentTurn++;
         return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
       } else {
