@@ -89,15 +89,13 @@ module.exports = function(robot) {
       }
       memoryAnswer = parseInt(memoryAnswer);
 
-      return msg.reply( memoryAnswer );
-      //
-      // if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
-      //   firstTurn(memoryAnswer - 1);
-      //   currentTurn++;
-      //   return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
-      // } else {
-      //   return msg.reply( "Sorry, didn't understand that." );
-      // }
+      if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
+        firstTurn(memoryAnswer - 1);
+        currentTurn++;
+        return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
+      } else {
+        return msg.reply( "Sorry, didn't understand that." );
+      }
 
     });
 
