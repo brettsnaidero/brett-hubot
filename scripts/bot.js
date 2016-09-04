@@ -127,7 +127,7 @@ module.exports = function(robot) {
             chosenDoor = number;
           }
         });
-        switchedMessage = "Successfully switched to door " + (chosenDoor + 1) + "!";
+        switchedMessage = "Successfully switched to door " + chosenDoor + "!";
       } else {
         switchedMessage = "Stayed put!";
       }
@@ -165,11 +165,11 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
-        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + chosenDoor + "-" + carDoor +".png";
+        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + carDoor +".png";
         return response;
         numLoss++; // Update losses
       } else {
-        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + chosenDoor + "-" + carDoor +".png";
+        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + carDoor +".png";
         return response;
         numWin++; // Update wins
       }
