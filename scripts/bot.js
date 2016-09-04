@@ -38,7 +38,7 @@ module.exports = function(robot) {
 
       // Put goats behind the remaining doors
       let i = 0;
-      while (i < 4) {
+      while (i < 3) {
         if (i != carDoor) {
           doors[i] = 'An old goat!';
         };
@@ -77,8 +77,6 @@ module.exports = function(robot) {
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
 
-      chosenDoor = (memoryAnswer - 1);
-
       // Convert to number
       switch (memoryAnswer) {
         case 'One':
@@ -95,8 +93,10 @@ module.exports = function(robot) {
       }
       memoryAnswer = parseInt(memoryAnswer);
 
-      if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
-        firstTurn(memoryAnswer - 1);
+      chosenDoor = (memoryAnswer - 1);
+
+      if (chosenDoor === 1 || chosenDoor === 2 || chosenDoor === 3) {
+        firstTurn(chosenDoor);
 
         currentTurn++;
 
@@ -107,7 +107,7 @@ module.exports = function(robot) {
           "So the car is either behind your chosen door, or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
           "Would you like to switch? (Format: 'Switch Yes/No') " +
-          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + openDoor + ".png"
+          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + "-" + openDoor + ".png"
         );
       } else {
         return msg.reply( "Sorry, didn't understand that." );
