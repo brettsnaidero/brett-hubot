@@ -165,11 +165,11 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
-        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + carDoor +".png";
+        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + chosenDoor + "-" + carDoor +".png";
         return response;
         numLoss++; // Update losses
       } else {
-        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + carDoor +".png";
+        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + chosenDoor + "-" + carDoor +".png";
         return response;
         numWin++; // Update wins
       }
@@ -180,7 +180,24 @@ module.exports = function(robot) {
 
       currentTurn++;
 
-      return msg.reply( response + " Thanks for playing!" );
+      return msg.reply( response );
+
+      clearScores();
     });
+
+    robot.hear(/Exit/, function(msg) {
+      return msg.reply( "Exited game." );
+
+      clearScores();
+    });
+
+    function clearScores() {
+      doors = [];
+      carDoor = 0;
+      openDoors = [];
+      currentTurn = 0;
+      chosenDoor = '';
+      openDoor = '';
+    }
 
 }
