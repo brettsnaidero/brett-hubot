@@ -52,12 +52,12 @@ module.exports = function(robot) {
       ];
 
       return res.send(
-        "Welcome to the Monty Hall game! " +
-        "In front of you, you see three closed doors. " +
-        "Behind two of them are old goats, but behind one of them is a brand spanking new car! " +
-        "All you need to do is choose the correct door to win that car. " +
-        "Alrighty, choose a door between 1 and 3 (Format: 'Door #'). "
-        // "http://brettsnaidero.com/assets/Uploads/doors/0-doors.png"
+        // "Welcome to the Monty Hall game! " +
+        // "In front of you, you see three closed doors. " +
+        // "Behind two of them are old goats, but behind one of them is a brand spanking new car! " +
+        // "All you need to do is choose the correct door to win that car. " +
+        // "Alrighty, choose a door between 1 and 3 (Format: 'Door #'). "
+        "http://brettsnaidero.com/assets/Uploads/doors/0-doors.png"
       );
     });
 
