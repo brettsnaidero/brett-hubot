@@ -59,15 +59,15 @@ module.exports = function(robot) {
     // First turn, get user choice and open a door
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
-      let openDoor =  Math.floor(Math.random() * 3);
-      openDoor = openDoor - 1;
-
-      while(openDoor == userChoice || openDoor == carDoor){
-        openDoor = Math.floor(Math.random() * 3);
-      };
-      openDoors[openDoor] = true;
-
-      return openDoor;
+      // let openDoor =  Math.floor(Math.random() * 3);
+      // openDoor = openDoor - 1;
+      //
+      // while(openDoor == userChoice || openDoor == carDoor){
+      //   openDoor = Math.floor(Math.random() * 3);
+      // };
+      // openDoors[openDoor] = true;
+      //
+      // return openDoor;
     };
 
     robot.respond(/Door (.*)/i, function(msg) {
