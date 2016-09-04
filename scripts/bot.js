@@ -70,24 +70,26 @@ module.exports = function(robot) {
 
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
-      return msg.reply( memoryAnswer );
-      // chosenDoor = memoryAnswer;
-      //
+
+      chosenDoor = memoryAnswer;
+
       // // Convert to number
-      // switch (memoryAnswer) {
-      //   case 'One':
-      //     memoryAnswer = 1;
-      //     break;
-      //   case 'Two':
-      //     memoryAnswer = 2;
-      //     break;
-      //   case 'Three':
-      //     memoryAnswer = 3;
-      //     break;
-      //   default:
-      //     break;
-      // }
-      // memoryAnswer = memoryAnswer.parseInt();
+      switch (memoryAnswer) {
+        case 'One':
+          memoryAnswer = 1;
+          break;
+        case 'Two':
+          memoryAnswer = 2;
+          break;
+        case 'Three':
+          memoryAnswer = 3;
+          break;
+        default:
+          break;
+      }
+      memoryAnswer = memoryAnswer.parseInt();
+
+      return msg.reply( memoryAnswer );
       //
       // if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
       //   firstTurn(memoryAnswer - 1);
