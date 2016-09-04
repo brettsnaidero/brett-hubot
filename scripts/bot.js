@@ -72,8 +72,6 @@ module.exports = function(robot) {
         openDoor = Math.floor(Math.random() * 3);
       };
       openDoors[openDoor] = true;
-
-      return (openDoor + 1);
     };
 
     robot.respond(/Door (.*)/i, function(msg) {
@@ -98,8 +96,10 @@ module.exports = function(robot) {
       memoryAnswer = parseInt(memoryAnswer);
 
       if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
-        let open = firstTurn(memoryAnswer - 1);
+        firstTurn(memoryAnswer - 1);
+
         currentTurn++;
+
         return msg.reply(
           "Excellent choice! The host then proceeds to open door number " +
           open +
@@ -107,7 +107,7 @@ module.exports = function(robot) {
           "So the car is either behind your chosen door, or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
           "Would you like to switch? (Format: 'Switch Yes/No') " +
-          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + open + ".png"
+          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + openDoor + ".png"
         );
       } else {
         return msg.reply( "Sorry, didn't understand that." );
@@ -152,7 +152,7 @@ module.exports = function(robot) {
       return msg.reply(
         switchedMessage +
         " Now let's open your door! Type 'Open' to find out if you've won." +
-        "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + ".png"
+        "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + "-" + openDoor + ".png"
       );
     });
 
@@ -165,11 +165,11 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
-        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + openDoor +".png";
+        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + carDoor +".png";
         return response;
         numLoss++; // Update losses
       } else {
-        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + openDoor +".png";
+        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + carDoor +".png";
         return response;
         numWin++; // Update wins
       }
