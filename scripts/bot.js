@@ -151,7 +151,7 @@ module.exports = function(robot) {
 
       return msg.reply(
         switchedMessage +
-        " Now let's open your door! Type 'Open' to find out if you've won." +
+        " Now let's open your door! Type 'Open' to find out if you've won. " +
         "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + "-" + openDoor + ".png"
       );
     });
