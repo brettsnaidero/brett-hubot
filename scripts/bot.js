@@ -93,7 +93,7 @@ module.exports = function(robot) {
         firstTurn(memoryAnswer - 1);
         currentTurn++;
         return msg.reply( "Excellent choice! The host then proceeds to open door number " + openDoor + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
-      } else {
+      } else { 
         return msg.reply( "Sorry, didn't understand that." );
       }
 
