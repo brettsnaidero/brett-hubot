@@ -70,6 +70,7 @@ module.exports = function(robot) {
 
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
+      return msg.reply( memoryAnswer );
       // chosenDoor = memoryAnswer;
       //
       // // Convert to number
@@ -86,15 +87,15 @@ module.exports = function(robot) {
       //   default:
       //     break;
       // }
-      memoryAnswer = memoryAnswer.parseInt();
-
-      if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
-        // firstTurn(memoryAnswer - 1);
-        currentTurn++;
-        return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
-      } else {
-        return msg.reply( "Sorry, didn't understand that." );
-      }
+      // memoryAnswer = memoryAnswer.parseInt();
+      //
+      // if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
+      //   firstTurn(memoryAnswer - 1);
+      //   currentTurn++;
+      //   return msg.reply( "Excellent choice! The host then proceeds to open door number " + memoryAnswer + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
+      // } else {
+      //   return msg.reply( "Sorry, didn't understand that." );
+      // }
 
     });
 
