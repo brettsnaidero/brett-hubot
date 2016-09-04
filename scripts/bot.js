@@ -109,11 +109,11 @@ module.exports = function(robot) {
       // If user says yes, then choose the other closed door
       if (switchYesNo === true) {
         openDoors.forEach((item, number) => {
-          if (item === false && number !== chosenDoor) {
+          if (item === false && number !=== chosenDoor) {
             chosenDoor = number;
           }
         });
-        switchedMessage = "Successfully switched to door " + (chosenDoor + 1) + "!";
+        switchedMessage = "You've switched to door " + (chosenDoor + 1) + "!";
       } else {
         switchedMessage = "Stayed put!";
       }
