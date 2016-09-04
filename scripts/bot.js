@@ -185,6 +185,8 @@ module.exports = function(robot) {
       clearScores();
     });
 
+
+    // Exit the game
     robot.hear(/Exit/, function(msg) {
       return msg.reply( "Exited game." );
 
@@ -199,5 +201,8 @@ module.exports = function(robot) {
       chosenDoor = '';
       openDoor = '';
     }
+
+
+    // Show stats
 
 }
