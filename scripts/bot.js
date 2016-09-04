@@ -63,13 +63,13 @@ module.exports = function(robot) {
     });
 
 
-    // First turn, get user choice and open a door
+    // First turn, get user choice and open one of the other doors
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
-      openDoor =  Math.floor(Math.random() * 3);
+      openDoor = (Math.floor(Math.random() * 3) + 1) - 1;
 
-      while(openDoor == userChoice || openDoor == carDoor){
-        openDoor = Math.floor(Math.random() * 3);
+      while (openDoor == userChoice || openDoor == carDoor) {
+        openDoor = (Math.floor(Math.random() * 3) + 1) - 1;
       };
       openDoors[openDoor] = true;
     };
@@ -95,7 +95,7 @@ module.exports = function(robot) {
 
       chosenDoor = (memoryAnswer - 1);
 
-      if (chosenDoor === 1 || chosenDoor === 2 || chosenDoor === 3) {
+      if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
         firstTurn(chosenDoor);
 
         currentTurn++;
