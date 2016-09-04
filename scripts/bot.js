@@ -25,7 +25,7 @@ module.exports = function(robot) {
     let chosenDoor = '';
 
     // Start game
-    robot.hear(/Start/, function(res) {
+    robot.respond(/Start/, function(res) {
       inGame = true;
       if (currentTurn == 0) {
         currentTurn = 1;
@@ -51,13 +51,13 @@ module.exports = function(robot) {
         false
       ];
 
-      return res.send(
-        // "Welcome to the Monty Hall game! " +
-        // "In front of you, you see three closed doors. " +
-        // "Behind two of them are old goats, but behind one of them is a brand spanking new car! " +
-        // "All you need to do is choose the correct door to win that car. " +
-        // "Alrighty, choose a door between 1 and 3 (Format: 'Door #'). "
-        "Hi http://brettsnaidero.com/assets/Uploads/doors/0-doors.png"
+      return res.reply(
+        "Welcome to the Monty Hall game! " +
+        "In front of you, you see three closed doors. " +
+        "Behind two of them are old goats, but behind one of them is a brand spanking new car! " +
+        "All you need to do is choose the correct door to win that car. " +
+        "Alrighty, choose a door between 1 and 3 (Format: 'Door #'). " +
+        "http://brettsnaidero.com/assets/Uploads/doors/0-doors.png"
       );
     });
 
@@ -105,8 +105,8 @@ module.exports = function(robot) {
           ". There's a goat behind the door! " +
           "So the car is either behind your chosen door, or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
-          "Would you like to switch? (Format: 'Switch Yes/No')" +
-          "http://brettsnaidero.com/assets/Uploads/doors/1-doors-" + memoryAnswer + "-" + open + ".png"
+          "Would you like to switch? (Format: 'Switch Yes/No') " +
+          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + open + ".png"
         );
       } else {
         return msg.reply( "Sorry, didn't understand that." );
