@@ -26,33 +26,39 @@ module.exports = function(robot) {
 
     // Start game
     robot.hear(/Start/, function(res) {
-      // New game, set variables
-      // function newGame() {
-        // Put the car behind a random door
-        carDoor = Math.floor(Math.random() * 3) + 1;
+      inGame = true;
+      if (currentTurn == 0) {
+        currentTurn = 1;
+      };
 
-        carDoor = (carDoor - 1);
+      // Put the car behind a random door
+      carDoor = (Math.floor(Math.random() * 3) + 1) - 1;
+      doors[carDoor] = 'A new car!';
 
-        doors[carDoor] = 'A new car!';
-
-        // Put goats behind the remaining doors
-        let i = 0;
-        while (i < 4) {
-          if (i != carDoor) {
-            doors[i] = 'An old goat!';
-          };
-          i++;
+      // Put goats behind the remaining doors
+      let i = 0;
+      while (i < 4) {
+        if (i != carDoor) {
+          doors[i] = 'An old goat!';
         };
+        i++;
+      };
 
-        // // Separate array for which doors are open
-        openDoors = [
-          false,
-          false,
-          false
-        ];
-      // }
+      // Separate array for which doors are open
+      openDoors = [
+        false,
+        false,
+        false
+      ];
 
-      return res.send( 'Welcome to the Monty Hall game! In front of you, you see three closed doors. Behind two of them are old goats, but behind one of them is a brand spanking new car! All you need to do is choose the correct door to win that car. Alrighty, choose a door between 1 and 3 (Format: "Door #").' );
+      return res.send(
+        "Welcome to the Monty Hall game! " +
+        "In front of you, you see three closed doors. " +
+        "Behind two of them are old goats, but behind one of them is a brand spanking new car! " +
+        "All you need to do is choose the correct door to win that car. " +
+        "Alrighty, choose a door between 1 and 3 (Format: 'Door #'). " +
+        "http://brettsnaidero.com/assets/Uploads/doors/0-doors.png"
+      );
     });
 
 
@@ -74,7 +80,7 @@ module.exports = function(robot) {
 
       chosenDoor = (memoryAnswer - 1);
 
-      // // Convert to number
+      // Convert to number
       switch (memoryAnswer) {
         case 'One':
           memoryAnswer = 1;
@@ -93,7 +99,15 @@ module.exports = function(robot) {
       if (memoryAnswer === 1 || memoryAnswer === 2 || memoryAnswer === 3) {
         let open = firstTurn(memoryAnswer - 1);
         currentTurn++;
-        return msg.reply( "Excellent choice! The host then proceeds to open door number " + open + ". There's a goat behind the door! So the car is either behind your chosen door, or the other remaining closed door. She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. Would you like to switch? (Format: 'Switch Yes/No')"  );
+        return msg.reply(
+          "Excellent choice! The host then proceeds to open door number " +
+          open +
+          ". There's a goat behind the door! " +
+          "So the car is either behind your chosen door, or the other remaining closed door. " +
+          "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
+          "Would you like to switch? (Format: 'Switch Yes/No')" +
+          "http://brettsnaidero.com/assets/Uploads/doors/1-doors-" + memoryAnswer + "-" + open + ".png"
+        );
       } else {
         return msg.reply( "Sorry, didn't understand that." );
       }
@@ -147,8 +161,10 @@ module.exports = function(robot) {
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
         return "It's a goat! You lost, I'm sorry.";
+        numLoss++; // Update losses
       } else {
         return "It's a neeeewwww car! You won, congratulations!";
+        numWin++; // Update wins
       }
     };
 
