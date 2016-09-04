@@ -77,20 +77,6 @@ module.exports = function(robot) {
     robot.respond(/Door (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
 
-      // Convert to number
-      switch (memoryAnswer) {
-        case 'One':
-          memoryAnswer = 1;
-          break;
-        case 'Two':
-          memoryAnswer = 2;
-          break;
-        case 'Three':
-          memoryAnswer = 3;
-          break;
-        default:
-          break;
-      }
       memoryAnswer = parseInt(memoryAnswer);
 
       chosenDoor = (memoryAnswer - 1);
@@ -107,7 +93,7 @@ module.exports = function(robot) {
           "So the car is either behind your chosen door, or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
           "Would you like to switch? (Format: 'Switch Yes/No') " +
-          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + openDoor + ".png"
+          "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + (openDoor + 1) + ".png"
         );
       } else {
         return msg.reply( "Sorry, didn't understand that." );
@@ -127,7 +113,7 @@ module.exports = function(robot) {
             chosenDoor = number;
           }
         });
-        switchedMessage = "Successfully switched to door " + chosenDoor + "!";
+        switchedMessage = "Successfully switched to door " + (chosenDoor + 1) + "!";
       } else {
         switchedMessage = "Stayed put!";
       }
@@ -152,7 +138,7 @@ module.exports = function(robot) {
       return msg.reply(
         switchedMessage +
         " Now let's open your door! Type 'Open' to find out if you've won. " +
-        "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + "-" + openDoor + ".png"
+        "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + (chosenDoor + 1) + "-" + (openDoor + 1) + ".png"
       );
     });
 
@@ -194,6 +180,7 @@ module.exports = function(robot) {
     });
 
     function clearScores() {
+      inGame = false;
       doors = [];
       carDoor = 0;
       openDoors = [];
