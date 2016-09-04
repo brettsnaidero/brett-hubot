@@ -23,6 +23,7 @@ module.exports = function(robot) {
     let openDoors = [];
 
     let chosenDoor = '';
+    let openDoor = '';
 
     // Start game
     robot.respond(/Start/, function(res) {
@@ -65,7 +66,7 @@ module.exports = function(robot) {
     // First turn, get user choice and open a door
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
-      let openDoor =  Math.floor(Math.random() * 3);
+      openDoor =  Math.floor(Math.random() * 3);
 
       while(openDoor == userChoice || openDoor == carDoor){
         openDoor = Math.floor(Math.random() * 3);
@@ -148,7 +149,11 @@ module.exports = function(robot) {
 
       currentTurn++;
 
-      return msg.reply( switchedMessage + " Now let's open your door! Type 'Open' to find out if you've won." );
+      return msg.reply(
+        switchedMessage +
+        " Now let's open your door! Type 'Open' to find out if you've won." +
+        "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + chosenDoor + ".png"
+      );
     });
 
 
@@ -160,10 +165,12 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
-        return "It's a goat! You lost, I'm sorry.";
+        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + openDoor +".png";
+        return response;
         numLoss++; // Update losses
       } else {
-        return "It's a neeeewwww car! You won, congratulations!";
+        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/3-doors-" + chosenDoor + "-" + openDoor +".png";
+        return response;
         numWin++; // Update wins
       }
     };
