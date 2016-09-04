@@ -110,7 +110,7 @@ module.exports = function(robot) {
       if (switchYesNo === true) {
         let test = '';
         openDoors.forEach((item, number) => {
-          if (item === false && number !=== chosenDoor) {
+          if (item === false && number !== chosenDoor) {
             test = number;
           }
         });
