@@ -87,12 +87,12 @@ module.exports = function(robot) {
         currentTurn++;
 
         return msg.reply(
-          "Excellent choice! The host then proceeds to open door number " +
+          "Excellent choice! The host then proceeds to open one of the other doors, door number " +
           (openDoor + 1) +
-          ". There's a goat behind the door! " +
-          "So the car is either behind your chosen door, or the other remaining closed door. " +
+          ", to reveal a goat! " +
+          "So the car is either behind your chosen door (Door number" + memoryAnswer + "), or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
-          "Would you like to switch? (Format: 'Switch Yes/No') " +
+          "Would you like to switch? (Format: 'Switch yes/no') " +
           "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + (openDoor + 1) + ".png"
         );
       } else {
@@ -108,13 +108,13 @@ module.exports = function(robot) {
     function secondTurn(switchYesNo) {
       // If user says yes, then choose the other closed door
       if (switchYesNo === true) {
-        let test = '';
+        let newDoor = '';
         openDoors.forEach((item, number) => {
           if (item === false && number !== chosenDoor) {
-            test = number;
+            newDoor = number;
           }
         });
-        chosenDoor = test;
+        chosenDoor = newDoor;
         switchedMessage = "You've switched to door " + (chosenDoor + 1) + "!";
       } else {
         switchedMessage = "Stayed put!";
@@ -127,10 +127,12 @@ module.exports = function(robot) {
       let memoryAnswer = msg.match[1];
 
       let switchYesNo = '';
-      if (memoryAnswer === 'Yes') {
+      if (memoryAnswer === 'yes' || memoryAnswer === 'Yes') {
         switchYesNo = true;
-      } else {
+      } else if (memoryAnswer === 'no' || memoryAnswer === 'No') {
         switchYesNo = false;
+      } else {
+        return msg.reply("Sorry, didn't quite understand that. Please write either 'Switch yes' or 'Switch no'.");
       }
 
       let response = secondTurn(switchYesNo);
