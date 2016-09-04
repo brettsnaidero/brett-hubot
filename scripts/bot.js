@@ -75,18 +75,18 @@ module.exports = function(robot) {
       chosenDoor = memoryAnswer;
 
       // Convert to number
-      switch memoryAnswer {
+      switch (memoryAnswer) {
         case 'One':
           memoryAnswer = 1;
-          return;
+          break;
         case 'Two':
           memoryAnswer = 2;
-          return;
+          break;
         case 'Three':
           memoryAnswer = 3;
-          return;
+          break;
         default:
-          return;
+          break;
       }
       memoryAnswer = memoryAnswer.parseInt();
 
@@ -145,7 +145,7 @@ module.exports = function(robot) {
       // Open the door...
       openDoors[chosenDoor - 1] = true;
       // ...and see what's inside
-      if ( doors[chosenDoor - 1] == 'A goat!') {
+      if ( doors[chosenDoor - 1] == 'An old goat!') {
         return "It's a goat! You lost, I'm sorry.";
       } else {
         return "It's a neeeewwww car! You won, congratulations!";
