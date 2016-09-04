@@ -52,7 +52,7 @@ module.exports = function(robot) {
         ];
       // }
 
-      return res.send( 'Alrighty, pick a door between 1 and 3 (Format: "Door #").' );
+      return res.send( 'Welcome to the Monty Hall game! In front of you, you see three closed doors. Behind two of them are old goats, but behind one of them is a brand spanking new car! All you need to do is choose the correct door to win that car. Alrighty, choose a door between 1 and 3 (Format: "Door #").' );
     });
 
 
@@ -101,6 +101,9 @@ module.exports = function(robot) {
     });
 
 
+
+
+
     function secondTurn(switchYesNo) {
       // If user says yes, then choose the other closed door
       if (switchYesNo === true) {
@@ -131,16 +134,30 @@ module.exports = function(robot) {
 
       currentTurn++;
 
-      return msg.reply( switchedMessage  );
+      return msg.reply( switchedMessage + " Now let's open your door! Type 'Open' to find out if you've won." );
     });
+
+
 
 
     // Open the door
     function openTheDoor() {
       // Open the door...
-      openDoors[userChoice] = true;
+      openDoors[chosenDoor - 1] = true;
       // ...and see what's inside
-      let outcome = doors[userChoice];
+      if ( doors[chosenDoor - 1] == 'A goat!') {
+        return "It's a goat! You lost, I'm sorry.";
+      } else {
+        return "It's a neeeewwww car! You won, congratulations!";
+      }
     };
+
+    robot.hear(/Open/, function(msg) {
+      let response = openTheDoor();
+
+      currentTurn++;
+
+      return msg.reply( response + " Thanks for playing!" );
+    });
 
 }
