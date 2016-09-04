@@ -33,7 +33,7 @@ module.exports = function(robot) {
       };
 
       // Put the car behind a random door
-      carDoor = (Math.floor(Math.random() * 3) + 1) - 1;
+      carDoor = (Math.floor(Math.random() * 3) + 1) - 1; // 0,1,2
       doors[carDoor] = 'A new car!';
 
       // Put goats behind the remaining doors
@@ -66,10 +66,10 @@ module.exports = function(robot) {
     // First turn, get user choice and open one of the other doors
     function firstTurn(userChoice) {
       // Choose a remaining door that doesn't have the car behind it
-      openDoor = (Math.floor(Math.random() * 3) + 1) - 1;
+      openDoor = (Math.floor(Math.random() * 3) + 1) - 1; // 0,1,2
 
       while (openDoor == userChoice || openDoor == carDoor) {
-        openDoor = (Math.floor(Math.random() * 3) + 1) - 1;
+        openDoor = (Math.floor(Math.random() * 3) + 1) - 1; // 0,1,2
       };
       openDoors[openDoor] = true;
     };
@@ -151,11 +151,11 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
-        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + carDoor +".png";
+        let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + (carDoor + 1) +".png";
         return response;
         numLoss++; // Update losses
       } else {
-        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + carDoor +".png";
+        let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + (carDoor + 1) +".png";
         return response;
         numWin++; // Update wins
       }
