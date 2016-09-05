@@ -8,19 +8,20 @@ module.exports = function(robot) {
 
     // Monty Hall
     // Variables to keep track of score
-    let numWin = 0;
-    let numLoss = 0;
-    let ratioValue = 0;
+    let switchWins = 0;
+    let switchLoss = 0;
+    let noSwitchWins = 0;
+    let noSwitchLoss = 0;
 
     // Game Variables
     let inGame = false;
     let currentTurn = 0;
 
-
     // Object for the doors
     let doors = [];
     let carDoor = 0;
     let openDoors = [];
+    let switchYesNo = '';
 
     let chosenDoor = '';
     let openDoor = '';
@@ -90,7 +91,7 @@ module.exports = function(robot) {
           "Excellent choice! The host then proceeds to open one of the other doors, door number " +
           (openDoor + 1) +
           ", to reveal a goat! " +
-          "So the car is either behind your chosen door (Door number" + memoryAnswer + "), or the other remaining closed door. " +
+          "So the car is either behind your chosen door (Door number " + memoryAnswer + "), or the other remaining closed door. " +
           "She offers you a choice: you can choose to stick with your original choice, or swap your choice to the remaining unclosed door. " +
           "Would you like to switch? (Format: 'Switch yes/no') " +
           "http://brettsnaidero.com/assets/Uploads/doors/2-doors-" + memoryAnswer + "-" + (openDoor + 1) + ".png"
@@ -126,7 +127,6 @@ module.exports = function(robot) {
     robot.respond(/Switch (.*)/i, function(msg) {
       let memoryAnswer = msg.match[1];
 
-      let switchYesNo = '';
       if (memoryAnswer === 'yes' || memoryAnswer === 'Yes') {
         switchYesNo = true;
       } else if (memoryAnswer === 'no' || memoryAnswer === 'No') {
@@ -155,13 +155,25 @@ module.exports = function(robot) {
       openDoors[chosenDoor] = true;
       // ...and see what's inside
       if ( doors[chosenDoor] == 'An old goat!') {
+        // Update losses
+        if (switchYesNo = true) {
+          switchLoss++;
+        } else (switchYesNo = true) {
+          noSwitchLoss++;
+        }
+        // Return response
         let response = "It's a goat! You lost, I'm sorry. http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + (carDoor + 1) +".png";
         return response;
-        numLoss++; // Update losses
       } else {
+        // Update wins
+        if (switchYesNo = true) {
+          switchWins++;
+        } else (switchYesNo = true) {
+          noSwitchWins++;
+        }
+        // Return response
         let response = "It's a neeeewwww car! You won, congratulations! http://brettsnaidero.com/assets/Uploads/doors/4-doors-" + (chosenDoor + 1) + "-" + (carDoor + 1) +".png";
         return response;
-        numWin++; // Update wins
       }
     };
 
@@ -188,6 +200,7 @@ module.exports = function(robot) {
       doors = [];
       carDoor = 0;
       openDoors = [];
+      switchYesNo = '';
       currentTurn = 0;
       chosenDoor = '';
       openDoor = '';
@@ -195,5 +208,13 @@ module.exports = function(robot) {
 
 
     // Show stats
+    robot.hear(/Stats/, function(msg) {
+      return msg.reply(
+        "Switch wins: " + switchWins +
+        "Switch losses: " + switchLoss +
+        "Stay wins: " + noSwitchWins +
+        "Stay wins: " + noSwitchLoss
+      );
+    });
 
 }
