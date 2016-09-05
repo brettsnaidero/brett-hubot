@@ -210,9 +210,9 @@ module.exports = function(robot) {
     // Show stats
     robot.hear(/Stats/, function(msg) {
       return msg.reply(
-        "Switch wins: " + switchWins +
-        "Switch losses: " + switchLoss +
-        "Stay wins: " + noSwitchWins +
+        "Switch wins: " + switchWins + ". " +
+        "Switch losses: " + switchLoss + ". " +
+        "Stay wins: " + noSwitchWins + ". " +
         "Stay wins: " + noSwitchLoss
       );
     });
