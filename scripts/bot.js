@@ -158,7 +158,7 @@ module.exports = function(robot) {
         // Update losses
         if (switchYesNo = true) {
           switchLoss++;
-        } else (switchYesNo = true) {
+        } else {
           noSwitchLoss++;
         }
         // Return response
@@ -168,7 +168,7 @@ module.exports = function(robot) {
         // Update wins
         if (switchYesNo = true) {
           switchWins++;
-        } else (switchYesNo = true) {
+        } else {
           noSwitchWins++;
         }
         // Return response
